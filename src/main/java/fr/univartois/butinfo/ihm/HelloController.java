@@ -22,6 +22,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
+import java.net.URL;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
@@ -52,8 +54,29 @@ public class HelloController {
 
 
 
-    private final Image wall = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/univartois/butinfo/ihm/Images/wall.png")));
-    private final Image path = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/univartois/butinfo/ihm/Images/path.png")));
+
+    private Image loadPathImage() {
+        try {
+            URL url = getClass().getResource("/fr/univartois/butinfo/ihm/Images/path.png");
+            return new Image(url.toExternalForm(), 32, 32, true, true);
+
+        } catch (NullPointerException | IllegalArgumentException e) {
+            throw new NoSuchElementException("Could not load image", e);
+        }
+    }
+
+    private Image loadWallImage() {
+        try {
+            URL url = getClass().getResource("/fr/univartois/butinfo/ihm/Images/wall.png");
+            return new Image(url.toExternalForm(), 32, 32, true, true);
+
+        } catch (NullPointerException | IllegalArgumentException e) {
+            throw new NoSuchElementException("Could not load image", e);
+        }
+    }
+
+    /*private final Image wall = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/univartois/butinfo/ihm/Images/wall.png")));
+    private final Image path = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/univartois/butinfo/ihm/Images/path.png")));*/
     private int[][] mapGame = {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -86,9 +109,9 @@ public class HelloController {
             for (int j = 0; j < mapGame[i].length; j++) {
                 ImageView view = new ImageView();
                 if (mapGame[i][j] == 1) {
-                    view.setImage(wall);
+                    view.setImage(loadWallImage());
                 } else {
-                    view.setImage(path);
+                    view.setImage(loadPathImage());
                 }
                 gridPane.add(view, j, i);
             }
