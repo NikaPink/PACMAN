@@ -18,6 +18,11 @@ package fr.univartois.butinfo.ihm;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+
+import java.util.Objects;
 
 /**
  * La classe HelloController illustre le fonctionnement du contrôleur associé à une vue.
@@ -41,6 +46,55 @@ public class HelloController {
      * l'annotation {@link FXML}.
      */
     @FXML
+    private GridPane gridPane;
+
+
+
+
+
+    private final Image wall = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/univartois/butinfo/ihm/Images/wall.png")));
+    private final Image path = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/univartois/butinfo/ihm/Images/path.png")));
+    private int[][] mapGame = {
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1},
+        {1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1},
+        {1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1},
+        {1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1},
+        {1,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+    };
+
+
+    public void initialize() {
+        for (int i = 0; i < mapGame.length; i++) {
+            for (int j = 0; j < mapGame[i].length; j++) {
+                ImageView view = new ImageView();
+                if (mapGame[i][j] == 1) {
+                    view.setImage(wall);
+                } else {
+                    view.setImage(path);
+                }
+                gridPane.add(view, j, i);
+            }
+        }
+    }
+
     private void onHelloButtonClick() {
         // Ici, on va simplement afficher un message dans le label de l'application.
         welcomeText.setText("Welcome to JavaFX Application!");
