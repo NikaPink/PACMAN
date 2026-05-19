@@ -75,8 +75,6 @@ public class HelloController {
         }
     }
 
-    /*private final Image wall = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/univartois/butinfo/ihm/Images/wall.png")));
-    private final Image path = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/fr/univartois/butinfo/ihm/Images/path.png")));*/
     private int[][] mapGame = {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
