@@ -100,7 +100,7 @@ public class GameMapFactory {
      *
      * @param height Le nombre de lignes dans la carte.
      * @param width Le nombre de colonnes dans la carte.
-     * @param nWalls Le nombre de murs de briques à placer dans la carte.
+     * /@param nWalls Le nombre de murs de briques à placer dans la carte.
      *
      * @return La carte qui a été créée.
      */

@@ -16,6 +16,7 @@
 
 package fr.univartois.butinfo.ihm;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -55,7 +56,7 @@ public class HelloController {
 
 
 
-    private Image loadPathImage() {
+    /* private Image loadPathImage() {
         try {
             URL url = getClass().getResource("/fr/univartois/butinfo/ihm/Images/path.png");
             return new Image(url.toExternalForm(), 32, 32, true, true);
@@ -73,9 +74,22 @@ public class HelloController {
         } catch (NullPointerException | IllegalArgumentException e) {
             throw new NoSuchElementException("Could not load image", e);
         }
+    } */
+
+    private Image loadImage(String path) {
+        try {
+            URL url = getClass().getResource(path);
+            return new Image(url.toExternalForm(), 16, 16, true, true);
+
+        } catch (NullPointerException | IllegalArgumentException e) {
+            throw new NoSuchElementException("Could not load image", e);
+        }
     }
 
-    private int[][] mapGame = {
+
+
+
+    /* private int[][] mapGame = {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -99,17 +113,29 @@ public class HelloController {
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-    };
+    }; */
+
+    GameMap generatedMap =  GameMapFactory.createMapWithRandomWalls(16,16);
 
 
-    public void initialize() {
-        for (int i = 0; i < mapGame.length; i++) {
-            for (int j = 0; j < mapGame[i].length; j++) {
+    /*public void initialize() {
+
+
+    } */
+
+    public void drawMap() {
+        for (int i = 0; i < generatedMap.getHeight()  ; i++) {
+            for (int j = 0; j < generatedMap.getWidth(); j++) {
                 ImageView view = new ImageView();
-                if (mapGame[i][j] == 1) {
-                    view.setImage(loadWallImage());
+                Tile tile = generatedMap.get(i,j);
+                if (generatedMap.get(i,j).getContent().getName().equals(TileContent.WALL.getName())) {
+                    Bindings.createObjectBinding(() -> loadImage(tile.getContent().getName()),
+                            tile.getContentProperty());
+
                 } else {
-                    view.setImage(loadPathImage());
+                    Bindings.createObjectBinding(() -> loadImage(tile.getContent().getName()),
+                            tile.getContentProperty());
+
                 }
                 gridPane.add(view, j, i);
             }

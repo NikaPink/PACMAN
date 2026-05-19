@@ -14,6 +14,12 @@ package fr.univartois.butinfo.ihm; /**
  * Tous droits réservés.
  */
 
+import javafx.beans.Observable;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * La classe Tile représente une tuile composant la carte du jeu Pacman.
  * Une fois créée, une telle tuile devient fixe sur la carte : c'est son
@@ -38,7 +44,8 @@ public class Tile {
     /**
      * Le contenu de cette tuile.
      */
-    private TileContent content;
+    private final ObjectProperty<TileContent> content = new SimpleObjectProperty<>();
+
 
     /**
      * Construit une nouvelle instance de Tile.
@@ -74,7 +81,7 @@ public class Tile {
      *
      * @return Le contenu de cette tuile.
      */
-    public TileContent getContent() {
+    public ObjectProperty<TileContent> getContent() {
         return content;
     }
 
@@ -83,7 +90,7 @@ public class Tile {
      *
      * @param content Le nouveau contenu de cette tuile.
      */
-    public void setContent(TileContent content) {
+    public void setContent(ObjectProperty<TileContent> content) {
         this.content = content;
     }
 
@@ -94,8 +101,12 @@ public class Tile {
      *
      * @see TileContent#isEmpty()
      */
-    public boolean isEmpty() {
-        return content.isEmpty();
+    public Boolean isEmpty() {
+        return content.get() == TileContent.PATH;
     }
 
+
+    public Observable getContentProperty() {
+        return content;
+    }
 }

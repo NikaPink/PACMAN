@@ -54,6 +54,10 @@ public class HelloApplication extends Application {
 
         // Enfin, on affiche la fenêtre.
         stage.show();
+
+        HelloController controller = fxmlLoader.getController();
+
+        controller.drawMap();
     }
 
     /**
