@@ -81,8 +81,8 @@ public class Tile {
      *
      * @return Le contenu de cette tuile.
      */
-    public ObjectProperty<TileContent> getContent() {
-        return content;
+    public TileContent getContent() {
+        return content.get();
     }
 
     /**
@@ -90,8 +90,8 @@ public class Tile {
      *
      * @param content Le nouveau contenu de cette tuile.
      */
-    public void setContent(ObjectProperty<TileContent> content) {
-        this.content = content;
+    public void setContent(TileContent content) {
+        this.content.set(content);
     }
 
     /**
@@ -106,7 +106,7 @@ public class Tile {
     }
 
 
-    public Observable getContentProperty() {
+    public ObjectProperty<TileContent> getContentProperty() {
         return content;
     }
 }

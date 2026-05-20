@@ -78,8 +78,8 @@ public class HelloController {
 
     private Image loadImage(String path) {
         try {
-            URL url = getClass().getResource(path);
-            return new Image(url.toExternalForm(), 16, 16, true, true);
+            URL url = getClass().getResource("/fr/univartois/butinfo/ihm/Images/"+path+".png");
+            return new Image(url.toExternalForm(), 32, 32, true, true);
 
         } catch (NullPointerException | IllegalArgumentException e) {
             throw new NoSuchElementException("Could not load image", e);
@@ -115,7 +115,7 @@ public class HelloController {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
     }; */
 
-    GameMap generatedMap =  GameMapFactory.createMapWithRandomWalls(16,16);
+    GameMap generatedMap =  GameMapFactory.createMapWithRandomWalls(16,32);
 
 
     /*public void initialize() {
@@ -129,12 +129,16 @@ public class HelloController {
                 ImageView view = new ImageView();
                 Tile tile = generatedMap.get(i,j);
                 if (generatedMap.get(i,j).getContent().getName().equals(TileContent.WALL.getName())) {
-                    Bindings.createObjectBinding(() -> loadImage(tile.getContent().getName()),
-                            tile.getContentProperty());
+                    view.imageProperty().bind(Bindings.createObjectBinding(() -> loadImage(tile.getContent().getName()),
+                            tile.getContentProperty()));
+
+
+
 
                 } else {
-                    Bindings.createObjectBinding(() -> loadImage(tile.getContent().getName()),
-                            tile.getContentProperty());
+                    view.imageProperty().bind(Bindings.createObjectBinding(() -> loadImage(tile.getContent().getName()),
+                            tile.getContentProperty()));
+
 
                 }
                 gridPane.add(view, j, i);
